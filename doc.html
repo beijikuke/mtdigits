@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>API接口文档</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github-dark.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background-color: white;
+      border-radius: 12px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+      overflow: hidden;
+    }
+
+    header {
+      background: linear-gradient(120deg, #1a6dcc, #0d4a9e);
+      color: white;
+      padding: 25px 40px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    header h1 {
+      font-size: 32px;
+      margin-bottom: 10px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    header h1 svg {
+      width: 36px;
+      height: 36px;
+    }
+
+    .subtitle {
+      font-size: 18px;
+      opacity: 0.85;
+      margin-top: 8px;
+    }
+
+    .content {
+      padding: 30px 40px;
+    }
+
+    section {
+      margin-bottom: 40px;
+      background-color: #fff;
+      border-radius: 10px;
+      padding: 25px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      border-left: 4px solid #1a6dcc;
+      transition: transform 0.3s ease;
+    }
+
+    section:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    h2 {
+      color: #0d4a9e;
+      font-size: 26px;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid #eaeef5;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    h2::before {
+      content: '';
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background-color: #1a6dcc;
+      border-radius: 50%;
+    }
+
+    h3 {
+      color: #2c3e50;
+      font-size: 20px;
+      margin: 25px 0 15px;
+      padding-left: 10px;
+      border-left: 3px solid #4a9eff;
+    }
+
+    .info-box {
+      background-color: #f0f7ff;
+      border-radius: 8px;
+      padding: 15px 20px;
+      margin: 20px 0;
+      border-left: 4px solid #4a9eff;
+    }
+
+    .info-row {
+      display: flex;
+      margin-bottom: 10px;
+      padding-bottom: 10px;
+      border-bottom: 1px dashed #d0e4ff;
+    }
+
+    .info-row:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    .info-label {
+      font-weight: 600;
+      color: #0d4a9e;
+      min-width: 140px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    th {
+      background-color: #0d4a9e;
+      color: white;
+      text-align: left;
+      padding: 14px 15px;
+      font-weight: 600;
+    }
+
+    td {
+      padding: 12px 15px;
+      border-bottom: 1px solid #eef2f7;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f8fafd;
+    }
+
+    tr:hover {
+      background-color: #f0f7ff;
+    }
+
+    pre {
+      border-radius: 8px;
+      margin: 20px 0;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+    }
+
+    code {
+      font-family: 'Fira Code', 'Consolas', monospace;
+      font-size: 15px;
+    }
+
+    .example-container {
+      display: flex;
+      gap: 25px;
+      margin: 25px 0;
+    }
+
+    .example-box {
+      flex: 1;
+      background: #f8fafd;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .example-title {
+      font-weight: 600;
+      color: #0d4a9e;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .status-codes {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 15px;
+      margin: 25px 0;
+    }
+
+    .status-card {
+      background: white;
+      border-radius: 8px;
+      padding: 18px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      border-left: 4px solid #4a9eff;
+    }
+
+    .status-code {
+      font-weight: 700;
+      font-size: 18px;
+      color: #0d4a9e;
+      margin-bottom: 5px;
+    }
+
+    .status-error {
+      font-weight: 600;
+      color: #e74c3c;
+    }
+
+    .status-desc {
+      color: #555;
+      margin-top: 8px;
+    }
+
+    @media (max-width: 768px) {
+      .example-container {
+        flex-direction: column;
+      }
+
+      .status-codes {
+        grid-template-columns: 1fr;
+      }
+
+      .content {
+        padding: 20px;
+      }
+
+      header {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M3 3h8v8H3V3zm0 10h8v8H3v-8zM13 3h8v8h-8V3zm0 10h8v8h-8v-8z"/>
+      </svg>
+      API接口文档
+    </h1>
+    <p class="subtitle">支付系统接口规范与实现说明</p>
+  </header>
+
+  <div class="content">
+    <!-- 下单接口 -->
+    <section id="order-create">
+      <h2>1、下单</h2>
+
+      <div class="info-box">
+        <div class="info-row">
+          <span class="info-label">请求方式：</span>
+          <span>POST</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">请求接口：</span>
+          <span>https://{domain}/api/order/create</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Content-Type：</span>
+          <span>application/json</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">接口描述：</span>
+          <span>创建订单成功后会返回支付链接</span>
+        </div>
+      </div>
+
+      <h3>请求参数：</h3>
+      <table>
+        <thead>
+        <tr>
+          <th>参数名</th>
+          <th>参数类型</th>
+          <th>是否必须</th>
+          <th>备注</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>app_id</td>
+          <td>string</td>
+          <td>Y</td>
+          <td>用户appid，可在管理端用户中心>个人资料获取</td>
+        </tr>
+        <tr>
+          <td>sign</td>
+          <td>string</td>
+          <td>Y</td>
+          <td>用户加密sign，加密方式详情可参考下面的示例</td>
+        </tr>
+        <tr>
+          <td>timestamp</td>
+          <td>string</td>
+          <td>Y</td>
+          <td>当前时间戳</td>
+        </tr>
+        <tr>
+          <td>request_id</td>
+          <td>string</td>
+          <td>Y</td>
+          <td>请求id,uuid,用于请求幂等校验，不能超过64位</td>
+        </tr>
+        <tr>
+          <td>return_url</td>
+          <td>string</td>
+          <td>Y</td>
+          <td>支付成功后同步跳转的地址，不能超过255位，如果不加上http://domain默认会加上配置的A站地址</td>
+        </tr>
+        <tr>
+          <td>notify_url</td>
+          <td>string</td>
+          <td>Y</td>
+          <td>支付成功后异步通知的地址，不能超过255位，如果不加上http://domain默认会加上配置的A站地址</td>
+        </tr>
+        <tr>
+          <td>order_id</td>
+          <td>string</td>
+          <td>Y</td>
+          <td>商户订单号，不能超过128位</td>
+        </tr>
+        <tr>
+          <td>amount</td>
+          <td>decimal</td>
+          <td>Y</td>
+          <td>订单金额，最多两位小数，例如：9.99</td>
+        </tr>
+        <tr>
+          <td>currency</td>
+          <td>string</td>
+          <td>Y</td>
+          <td>币种，例如：USD</td>
+        </tr>
+        <tr>
+          <td>merchant_url</td>
+          <td>string</td>
+          <td>Y</td>
+          <td>商户站网址，例如：<a href="https://www.abc.com">https://www.abc.com</a>，格式：scheme+domain，不超过128个字符</td>
+        </tr>
+        <tr>
+          <td>account_type</td>
+          <td>string</td>
+          <td>Y</td>
+          <td>正式：live，沙盒：sandbox</td>
+        </tr>
+        <tr>
+          <td>payment_option</td>
+          <td>string</td>
+          <td>Y</td>
+          <td>支付方式，现支持的支付方式有：PayPal，Card，GooglePay，ApplePay，想要支持多个用下划线_分割,该参数也支持通过放在url?payment_option=PayPal_Card_GooglePay这种方式传递，如果不传默认使用PayPal</td>
+        </tr>
+        <tr>
+          <td>products</td>
+          <td>array</td>
+          <td>N</td>
+          <td>商品信息，格式自定义</td>
+        </tr>
+        <tr>
+          <td>merchant_custom</td>
+          <td>string</td>
+          <td>N</td>
+          <td>自定义参数，如果传递会在异步通知时返回给用户，最多128个字符</td>
+        </tr>
+        <tr>
+          <td>firstname</td>
+          <td>string</td>
+          <td>Y</td>
+          <td>收货人名，firstname,不超过128个字符</td>
+        </tr>
+        <tr>
+          <td>lastname</td>
+          <td>string</td>
+          <td>Y</td>
+          <td>收货人姓，lastname,不超过128个字符</td>
+        </tr>
+        <tr>
+          <td>street_address1</td>
+          <td>string</td>
+          <td>Y</td>
+          <td>街道地址1,不超过128个字符</td>
+        </tr>
+        <tr>
+          <td>street_address2</td>
+          <td>string</td>
+          <td>Y</td>
+          <td>街道地址2,不超过128个字符</td>
+        </tr>
+        <tr>
+          <td>city</td>
+          <td>string</td>
+          <td>Y</td>
+          <td>城市,不超过64个字符</td>
+        </tr>
+        <tr>
+          <td>state</td>
+          <td>string</td>
+          <td>Y</td>
+          <td>州/省</td>
+        </tr>
+        <tr>
+          <td>postcode</td>
+          <td>string</td>
+          <td>Y</td>
+          <td>邮编</td>
+        </tr>
+        <tr>
+          <td>country_code</td>
+          <td>string</td>
+          <td>Y</td>
+          <td>国家编码，例如:US</td>
+        </tr>
+        <tr>
+          <td>customer_phone</td>
+          <td>string</td>
+          <td>Y</td>
+          <td>电话号码</td>
+        </tr>
+        <tr>
+          <td>customer_email</td>
+          <td>string</td>
+          <td>Y</td>
+          <td>客户邮箱</td>
+        </tr>
+        <tr>
+          <td>customer_ip</td>
+          <td>string</td>
+          <td>Y</td>
+          <td>客户IP地址</td>
+        </tr>
+        <tr>
+          <td>language</td>
+          <td>string</td>
+          <td>Y</td>
+          <td>客户浏览器Accept-Language,不超过255个字符</td>
+        </tr>
+        <tr>
+          <td>useragent</td>
+          <td>string</td>
+          <td>Y</td>
+          <td>客户浏览器User-Agent,不超过255个字符</td>
+        </tr>
+        </tbody>
+      </table>
+
+      <h3>请求示例：</h3>
+      <pre><code class="language-json">{
+    "app_id": "49e94728dc301a3ed0e9b0897c541c11",
+    "merchant_url": "https://domain.com",
+    "return_url": "/paypal_return.php",
+    "cancel_return_url": "/index.php/checkout/",
+    "notify_url": "/paypal_notify.php",
+    "account_type": "sandbox",
+    "payment_option": "PayPal",
+    "merchant_custom": "",
+    "order_id": 8980,
+    "amount": "34.95",
+    "currency": "USD",
+    "products": "{'Merica Kickin' Ass Since 1776 - Unisex T-Shirt - Red, L*1*34.95}",
+    "firstname": "test",
+    "lastname": "test",
+    "street_address1": "test",
+    "street_address2": "",
+    "city": "test",
+    "postcode": "56057",
+    "state": "WA",
+    "country_code": "US",
+    "customer_phone": "910488177",
+    "customer_email": "test@gmail.com",
+    "customer_ip": "11.212.153.11",
+    "useragent": "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/137.0.0.0 Safari\/537.36",
+    "language": "zh-CN,zh;q=0.9",
+    "timestamp": 1750302780,
+    "request_id": "314a13f453af402a805184d9a1ac95ed",
+    "sign": "d16974e2716defdf52f1ee7c500044e0"
+}</code></pre>
+
+      <h3>返回示例：</h3>
+      <pre><code class="language-json">{
+    "code": 100000,
+    "msg": "success",
+    "time": "2025-05-28 18:32:44",
+    "data": {
+        "id": "25061912032731311",
+        "payment_url": "https://www.sandbox.paypal.com/checkoutnow?token=87K329976Y3418123"
+    }
+}</code></pre>
+
+      <h3>返回参数：</h3>
+      <table>
+        <thead>
+        <tr>
+          <th>参数名</th>
+          <th>参数类型</th>
+          <th>是否必须</th>
+          <th>备注</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>code</td>
+          <td>int</td>
+          <td>Y</td>
+          <td>状态码，成功时为100000</td>
+        </tr>
+        <tr>
+          <td>id</td>
+          <td>String</td>
+          <td>Y</td>
+          <td>订单号</td>
+        </tr>
+        <tr>
+          <td>payment_url</td>
+          <td>String</td>
+          <td>Y</td>
+          <td>成功时会返回支付链接，需引导用户打开支付(注意：Apple pay无法嵌套在iframe中显示，googlepay如果想要嵌套在iframe中需要设置iframe属性：sandbox="allow-scripts allow-same-origin allow-popups allow-modals allow-top-navigation allow-forms")</td>
+        </tr>
+        </tbody>
+      </table>
+
+      <h3>异常返回：</h3>
+      <div class="status-codes">
+        <div class="status-card">
+          <div class="status-code">100000</div>
+          <div class="status-error">success</div>
+          <div class="status-desc">成功状态码</div>
+        </div>
+        <div class="status-card">
+          <div class="status-code">100001</div>
+          <div class="status-error">An error occurred</div>
+          <div class="status-desc">支付系统异常，请联系管理员</div>
+        </div>
+        <div class="status-card">
+          <div class="status-code">100002</div>
+          <div class="status-error">The request is too frequent.</div>
+          <div class="status-desc">请求过于频繁（同一服务器ip每秒请求不能超过服务器限制）</div>
+        </div>
+        <div class="status-card">
+          <div class="status-code">100003</div>
+          <div class="status-error">Duplicate request ID detected.</div>
+          <div class="status-desc">request_id参数重复</div>
+        </div>
+        <div class="status-card">
+          <div class="status-code">100004</div>
+          <div class="status-error">System prompt: You have been put under risk control.</div>
+          <div class="status-desc">下单用户被风控</div>
+        </div>
+        <div class="status-card">
+          <div class="status-code">100005</div>
+          <div class="status-error">INVALID_APPID</div>
+          <div class="status-desc">appId不正确</div>
+        </div>
+        <div class="status-card">
+          <div class="status-code">100006</div>
+          <div class="status-error">USER_DISABLED</div>
+          <div class="status-desc">appid对应的账号被禁用</div>
+        </div>
+        <div class="status-card">
+          <div class="status-code">100007</div>
+          <div class="status-error">INVALID_SIGN</div>
+          <div class="status-desc">sgin校验不通过</div>
+        </div>
+        <div class="status-card">
+          <div class="status-code">100008</div>
+          <div class="status-error">PARAM_ERROR</div>
+          <div class="status-desc">参数不正确</div>
+        </div>
+        <div class="status-card">
+          <div class="status-code">200003</div>
+          <div class="status-error">The merchant site is not yet configured. Please contact the administrator for setup.</div>
+          <div class="status-desc">商户站没有报备，需要联系管理员进行报备</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 获取订单详情 -->
+    <section id="order-detail">
+      <h2>2、根据ID获取订单详情</h2>
+
+      <div class="info-box">
+        <div class="info-row">
+          <span class="info-label">请求方式：</span>
+          <span>GET</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">请求接口：</span>
+          <span>https://{domain}/api/order/detail</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">接口描述：</span>
+          <span>根据系统订单ID获取订单详情信息</span>
+        </div>
+      </div>
+
+      <h3>请求参数：</h3>
+      <table>
+        <thead>
+        <tr>
+          <th>参数名</th>
+          <th>参数类型</th>
+          <th>是否必须</th>
+          <th>备注</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>id</td>
+          <td>string</td>
+          <td>Y</td>
+          <td>系统订单号</td>
+        </tr>
+        <tr>
+          <td>app_id</td>
+          <td>string</td>
+          <td>Y</td>
+          <td>用户appid</td>
+        </tr>
+        <tr>
+          <td>sign</td>
+          <td>string</td>
+          <td>Y</td>
+          <td>用户加密sign</td>
+        </tr>
+        <tr>
+          <td>timestamp</td>
+          <td>string</td>
+          <td>Y</td>
+          <td>当前时间戳</td>
+        </tr>
+        </tbody>
+      </table>
+
+      <h3>请求示例：</h3>
+      <div class="info-box">
+        https://{domain}/api/order/detail?id=25052118002827917&app_id=23klj435k34l5j34llkfkdsf&sign=xxxx&timestamp=xxx
+      </div>
+
+      <h3>返回参数：</h3>
+      <table>
+        <thead>
+        <tr>
+          <th>参数名</th>
+          <th>参数类型</th>
+          <th>非空</th>
+          <th>备注</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>system_order_id</td>
+          <td>string</td>
+          <td>Y</td>
+          <td>系统订单号</td>
+        </tr>
+        <tr>
+          <td>merchant_order_id</td>
+          <td>string</td>
+          <td>Y</td>
+          <td>商户订单号</td>
+        </tr>
+        <tr>
+          <td>merchant_site_url</td>
+          <td>string</td>
+          <td>Y</td>
+          <td>商户站地址</td>
+        </tr>
+        <tr>
+          <td>merchant_group_name</td>
+          <td>string</td>
+          <td>Y</td>
+          <td>商户分组名称</td>
+        </tr>
+        <tr>
+          <td>firstname</td>
+          <td>string</td>
+          <td>Y</td>
+          <td>first name</td>
+        </tr>
+        <tr>
+          <td>lastname</td>
+          <td>string</td>
+          <td>Y</td>
+          <td>last name</td>
+        </tr>
+        <tr>
+          <td>country_code</td>
+          <td>string</td>
+          <td>Y</td>
+          <td>国家代码</td>
+        </tr>
+        <tr>
+          <td>city</td>
+          <td>string</td>
+          <td>Y</td>
+          <td>所在城市</td>
+        </tr>
+        <tr>
+          <td>state</td>
+          <td>string</td>
+          <td>Y</td>
+          <td>所在州</td>
+        </tr>
+        <tr>
+          <td>postcode</td>
+          <td>string</td>
+          <td>Y</td>
+          <td>邮编</td>
+        </tr>
+        <tr>
+          <td>street_address1</td>
+          <td>string</td>
+          <td>Y</td>
+          <td>地址1</td>
+        </tr>
+        <tr>
+          <td>street_address2</td>
+          <td>string</td>
+          <td>Y</td>
+          <td>地址2</td>
+        </tr>
+        <tr>
+          <td>customer_email</td>
+          <td>string</td>
+          <td>Y</td>
+          <td>客户邮箱</td>
+        </tr>
+        <tr>
+          <td>customer_phone</td>
+          <td>string</td>
+          <td>Y</td>
+          <td>客户电话</td>
+        </tr>
+        <tr>
+          <td>customer_ip</td>
+          <td>string</td>
+          <td>Y</td>
+          <td>客户IP</td>
+        </tr>
+        <tr>
+          <td>order_amount</td>
+          <td>string</td>
+          <td>Y</td>
+          <td>订单金额</td>
+        </tr>
+        <tr>
+          <td>currency</td>
+          <td>string</td>
+          <td>Y</td>
+          <td>币种</td>
+        </tr>
+        <tr>
+          <td>order_amount_usd</td>
+          <td>string</td>
+          <td>Y</td>
+          <td>美元标准金额</td>
+        </tr>
+        <tr>
+          <td>payment_method</td>
+          <td>string</td>
+          <td>Y</td>
+          <td>支付方式</td>
+        </tr>
+        <tr>
+          <td>order_status</td>
+          <td>string</td>
+          <td>Y</td>
+          <td>订单状态</td>
+        </tr>
+        <tr>
+          <td>payment_status</td>
+          <td>string</td>
+          <td>Y</td>
+          <td>支付状态</td>
+        </tr>
+        <tr>
+          <td>risk_flag</td>
+          <td>string</td>
+          <td>Y</td>
+          <td>支付状态</td>
+        </tr>
+        <tr>
+          <td>risk_reason</td>
+          <td>string</td>
+          <td>Y</td>
+          <td>支付状态</td>
+        </tr>
+        <tr>
+          <td>create_time</td>
+          <td>string</td>
+          <td>Y</td>
+          <td>下单时间</td>
+        </tr>
+        <tr>
+          <td>merchant_custom</td>
+          <td>string</td>
+          <td>Y</td>
+          <td>商家自定义内容</td>
+        </tr>
+        <tr>
+          <td>payment_remark</td>
+          <td>string</td>
+          <td>Y</td>
+          <td>支付备注</td>
+        </tr>
+        <tr>
+          <td>payment_completed_time</td>
+          <td>string</td>
+          <td>Y</td>
+          <td>支付时间</td>
+        </tr>
+        </tbody>
+      </table>
+
+      <h3>返回示例：</h3>
+      <pre><code class="language-json">{
+    "code": 100000,
+    "msg": "success",
+    "data": {
+        "system_order_id": 2025050820363086,
+        "merchant_order_id": "100012953216",
+        "merchant_site_url": "https://abczexdy.com",
+        "merchant_group_name": "商户站分组1",
+        "firstname": "fadh",
+        "lastname": "fd32",
+        "country_code": "US",
+        "city": "Uithoorn",
+        "state": "wertr2",
+        "postcode": "1422WK",
+        "street_address1": "Knobbelzwaan 48",
+        "street_address2": "4343",
+        "customer_email": "wwvin0@gmail.com",
+        "customer_phone": "6473153",
+        "customer_ip": "84.85.235.151",
+        "order_amount": "79.15",
+        "currency": "EUR",
+        "order_amount_usd": "89.67",
+        "payment_method": "GooglePay",
+        "order_status": "​Pending Shipment​",
+        "payment_status": "Completed",
+        "risk_flag": 0,
+        "risk_reason": "",
+        "create_time": "2025-05-08 22:16:00",
+        "payment_completed_time": "2025-05-08 22:14:17",
+        "merchant_custom": "",
+        "payment_remark": ""
+    }
+}</code></pre>
+    </section>
+
+    <!-- 同步通知 -->
+    <section id="sync-notify">
+      <h2>3、同步通知</h2>
+
+      <div class="info-box">
+        <div class="info-row">
+          <span class="info-label">请求方式：</span>
+          <span>GET</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">接口描述：</span>
+          <span>支付成功后同步通知用户（注意，不要依赖同步通知确定订单最终状态，同步通知的时候如果需更改订单状态需拉取一下订单确定最终的状态防止被篡改）</span>
+        </div>
+      </div>
+
+      <h3>请求参数：</h3>
+      <table>
+        <thead>
+        <tr>
+          <th>参数名</th>
+          <th>参数类型</th>
+          <th>是否必须</th>
+          <th>备注</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>system_order_id</td>
+          <td>string</td>
+          <td>Y</td>
+          <td>系统订单号</td>
+        </tr>
+        <tr>
+          <td>order_id</td>
+          <td>string</td>
+          <td>Y</td>
+          <td>商户订单号</td>
+        </tr>
+        <tr>
+          <td>payment_status</td>
+          <td>string</td>
+          <td>Y</td>
+          <td>支付状态，只有Completed是成功，其他都是失败，注意：PayPal存在一种状态Pending，该状态用户已经支付但是资金还没到商家账户，如果有需要可判断该种状态进行友好提示</td>
+        </tr>
+        <tr>
+          <td>payment_method</td>
+          <td>string</td>
+          <td>Y</td>
+          <td>支付方式</td>
+        </tr>
+        <tr>
+          <td>transaction_id</td>
+          <td>string</td>
+          <td>Y</td>
+          <td>交易号</td>
+        </tr>
+        <tr>
+          <td>merchant_custom</td>
+          <td>string</td>
+          <td>Y</td>
+          <td>商家自定义内容</td>
+        </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- 异步通知 -->
+    <section id="async-notify">
+      <h2>4、异步通知</h2>
+
+      <div class="info-box">
+        <div class="info-row">
+          <span class="info-label">请求方式：</span>
+          <span>POST</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Content-Type：</span>
+          <span>application/json</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">接口描述：</span>
+          <span>该接口在用户支付成功后进行异步通知操作，接收方在接收到通知后需在6秒内响应SUCCESS字符串，如果没有返回则会按照一定频率持续通知</span>
+        </div>
+      </div>
+
+      <h3>请求参数：</h3>
+      <table>
+        <thead>
+        <tr>
+          <th>参数名</th>
+          <th>参数类型</th>
+          <th>是否必须</th>
+          <th>备注</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>system_order_id</td>
+          <td>string</td>
+          <td>Y</td>
+          <td>系统订单号</td>
+        </tr>
+        <tr>
+          <td>order_id</td>
+          <td>string</td>
+          <td>Y</td>
+          <td>商户订单号</td>
+        </tr>
+        <tr>
+          <td>payment_status</td>
+          <td>string</td>
+          <td>Y</td>
+          <td>Completed为成功，其他的都是失败</td>
+        </tr>
+        <tr>
+          <td>transaction_id</td>
+          <td>string</td>
+          <td>Y</td>
+          <td>交易号</td>
+        </tr>
+        <tr>
+          <td>custom_param</td>
+          <td>string</td>
+          <td>N</td>
+          <td>商家自定义参数，有则返回</td>
+        </tr>
+        <tr>
+          <td>order_amount</td>
+          <td>decimal</td>
+          <td>Y</td>
+          <td>订单金额</td>
+        </tr>
+        <tr>
+          <td>currency</td>
+          <td>string</td>
+          <td>Y</td>
+          <td>金额币种</td>
+        </tr>
+        <tr>
+          <td>app_id</td>
+          <td>string</td>
+          <td>Y</td>
+          <td>用户appid</td>
+        </tr>
+        <tr>
+          <td>request_id</td>
+          <td>string</td>
+          <td>Y</td>
+          <td>请求id</td>
+        </tr>
+        <tr>
+          <td>sign</td>
+          <td>string</td>
+          <td>Y</td>
+          <td>用户加密sign</td>
+        </tr>
+        <tr>
+          <td>timestamp</td>
+          <td>string</td>
+          <td>Y</td>
+          <td>当前时间戳</td>
+        </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- sign生成方式 -->
+    <section id="sign-generation">
+      <h2>5、sign生成方式</h2>
+
+      <div class="info-box">
+        <ol>
+          <li>字典排序，按参数名自然排序（Natural Sort）</li>
+          <li>去除sign参数(如果有)</li>
+          <li>参数按照排序后key1=value1&key2=value2拼接字符串</li>
+          <li>参数字符串拼接&app_key={app_key}</li>
+          <li>对拼接后的字符串进行md5得到sign</li>
+        </ol>
+      </div>
+
+      <h3>PHP版本生成方式参考：</h3>
+      <pre><code class="language-php">/**
+ * 生成加密sign
+ *
+ * @param array $params 请求参数数组
+ * @param string $app_key 应用密钥
+ * @return string 生成的MD5签名（32位小写）
+ */
+function generate_sign(array $params, string $app_key): string
+{
+    // 过滤无效参数
+    $filteredParams = array_filter($params, function ($value) {
+        return $value !== null && $value !== '';
+    });
+
+    // 移除可能存在的旧签名
+    unset($filteredParams['sign']);
+
+    // 自然排序参数
+    ksort($filteredParams, SORT_NATURAL);
+
+    // 构建待加密字符串
+    $signString = '';
+    foreach ($filteredParams as $key => $value) {
+        $signString .= "{$key}={$value}&";
+    }
+    $signString = rtrim($signString, '&');
+
+    // 拼接应用凭证
+    $signString .= "&app_key={$app_key}";
+
+    // 生成签名
+    return md5($signString);
+}
+
+/**
+ * 校验参数
+ *
+ * @param array $params
+ * @param string $app_key
+ * @return bool
+ */
+function verify_sign(array $params, string $app_key): bool
+{
+    if (empty($params['sign'])) {
+        return false;
+    }
+    //sign有效不超过5分钟
+    if (empty($params['timestamp']) || $params['timestamp'] + 300 < time()) {
+        return false;
+    }
+    $receivedSign = $params['sign'];
+    unset($params['sign']);
+    $generatedSign = generate_sign($params, $app_key);
+    return hash_equals($generatedSign, $receivedSign);
+}</code></pre>
+    </section>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', (event) => {
+    // 高亮所有代码块
+    document.querySelectorAll('pre code').forEach((el) => {
+      hljs.highlightElement(el);
+    });
+
+    // 添加平滑滚动
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+  });
+</script>
+</body>
+</html>
